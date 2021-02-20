@@ -14,14 +14,14 @@
   set_fact:
     udp2raw_version: "{{ udp2raw_latest_release.json.tag_name[0:] }}"
  
--  name: Unarchive a file with extra options
-   become: yes
-   ansible.builtin.unarchive:
+- name: Unarchive a file with extra options
+  become: yes
+  ansible.builtin.unarchive:
     src: https://github.com/wangyu-/udp2raw-tunnel/releases/download/{{ udp2raw_version }}/udp2raw_binaries.tar.gz
     dest: /opt/
     remote_src: yes
     extra_opts:
-    - udp2raw_{{ udp2raw_arch }}
+    - "udp2raw_{{ udp2raw_arch }}"
 
 - name: create udp2raw as a systemctl service
   become: yes
