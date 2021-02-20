@@ -1,3 +1,3 @@
-# ansible-udp2raw4fastd
+# ansible-role-udp2raw
 
-Install [udp2rawtunnel](https://github.com/wangyu-/udp2raw-tunnel) as a service.
+Install and configure [udp2rawtunnel](https://github.com/wangyu-/udp2raw-tunnel) as a service.
