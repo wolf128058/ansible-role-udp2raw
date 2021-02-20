@@ -5,4 +5,15 @@ udp2raw_arch_map:
   aarch64: 'arm64_hw_aes'
 
 udp2raw_arch: "{{ udp2raw_arch_map[ansible_architecture] | default(ansible_architecture) }}"
-udp2raw_secret: "Sh4me0nSh4p3rs"
+
+udp2raw_serving_as_server:
+  - fork_alias: "8060"
+    listen: "0.0.0.0:8060"
+    remote: "127.0.0.1:1250"
+    key: "Tr4ff1cSh4p1ng5uck5!"
+    raw_mode: "faketcp"
+    auto_iptables: 1
+    cipher_mode: "xor"
+    auth_mode: "simple"
+    disable_bpf: 1
+    fix_gro: 1
