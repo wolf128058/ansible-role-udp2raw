@@ -25,6 +25,15 @@
     extra_opts:
     - "udp2raw_{{ udp2raw_arch }}"
 
+- name: write config file
+  become: yes
+  template:
+    src: udp2raw.configfile.j2
+    dest: /etc/udp2raw/{{ usd2raw_instance }}.conf
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: create udp2raw as a systemctl service
   become: yes
   template:
