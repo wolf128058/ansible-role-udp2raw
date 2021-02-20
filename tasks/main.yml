@@ -30,7 +30,7 @@
   become: yes
   template:
     src: udp2raw.configfile.j2
-    dest: /etc/udp2raw/{{ usd2raw_instance }}.conf
+    dest: /etc/udp2raw/{{ udp2raw_instance }}.conf
     owner: root
     group: root
     mode: '0755'
@@ -49,5 +49,5 @@
 - name: enable service
   become: yes
   ansible.builtin.systemd:
-    name: udp2raw@{{ usd2raw_instance }}
+    name: udp2raw@{{ udp2raw_instance }}
     enabled: yes

@@ -1,2 +1,12 @@
 udp2raw_version: latest
-usd2raw_instance: default
+udp2raw_instance: default
+udp2raw_mode: server
+udp2raw_listen: "0.0.0.0:8060"
+udp2raw_remote: "127.0.0.1:1250"
+udp2raw_key: "Tr4ff1cSh4p1ng5uck5!"
+udp2raw_raw_mode: "faketcp"
+udp2raw_auto_iptables: True
+udp2raw_cipher_mode: "xor"
+udp2raw_auth_mode: "simple"
+udp2raw_disable_bpf: True
+udp2raw_fix_gro: True
