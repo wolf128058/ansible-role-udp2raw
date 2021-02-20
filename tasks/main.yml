@@ -9,10 +9,12 @@
   register: udp2raw_latest_release
   until: udp2raw_latest_release.status == 200
   retries: 5
+  when: udp2raw_version == 'latest'
 
 - name: "Set fact udp2raw_version to {{ udp2raw_latest_release.json.tag_name[0:] }}"
   set_fact:
     udp2raw_version: "{{ udp2raw_latest_release.json.tag_name[0:] }}"
+  when: udp2raw_version == 'latest'
  
 - name: Unarchive a file with extra options
   become: yes
