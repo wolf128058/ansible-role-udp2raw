@@ -1,10 +1,29 @@
--s 
--l {{ listen }}
--r {{ remote }}
--k {{ key }}
---raw-mode {{ raw_mode }} 
--a 
---cipher-mode {{cipher_mode}} 
---auth-mode {{ auth_mode }} 
---disable-bpf 
+{# managed by ansible #}
+{% if udp2raw_mode == 'server' %}
+-s
+{% else %}
+-c
+{% endif %}
+-l {{ udp2raw_listen }}
+-r {{ rudp2raw_emote }}
+{% if udp2raw_key is defined %}
+-k {{ udp2raw_key }}
+{% endif %}
+{% if udp2raw_raw_mode is defined %}
+--raw-mode {{ udp2raw_raw_mode }}
+{% endif %}
+{% if udp2raw_auto_iptables == True %}
+-a
+{% endif %}
+{% if udp2raw_cipher_mode is defined %}
+--cipher-mode {{ udp2raw_cipher_mode }}
+{% endif %}
+{% if udp2raw_auth_mode is defined %}
+--auth-mode {{ udp2raw_auth_mode }}
+{% endif %}
+{% if udp2raw_disable_bpf == True %}
+--disable-bpf
+{% endif %}
+{% if udp2raw_fix_gro == True %}
 --fix-gro
+{% endif %}

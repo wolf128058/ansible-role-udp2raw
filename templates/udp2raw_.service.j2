@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 Type=forking
-ExecStart=/opt/udp2raw_{{ udp2raw_arch }} --conf-file /opt/.udp2raw.%I.conf
+ExecStart=/opt/udp2raw_{{ udp2raw_arch }} --conf-file /etc/udp2raw/%I.conf
 PIDFile=/run/udp2raw/%I.pid
 WorkingDirectory=/opt
 RestartSec=10

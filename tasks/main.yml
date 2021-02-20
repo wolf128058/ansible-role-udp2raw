@@ -9,34 +9,45 @@
   register: udp2raw_latest_release
   until: udp2raw_latest_release.status == 200
   retries: 5
+  when: udp2raw_version == 'latest'
 
 - name: "Set fact udp2raw_version to {{ udp2raw_latest_release.json.tag_name[0:] }}"
   set_fact:
     udp2raw_version: "{{ udp2raw_latest_release.json.tag_name[0:] }}"
+  when: udp2raw_version == 'latest'
  
--  name: Unarchive a file with extra options
-   become: yes
-   ansible.builtin.unarchive:
+- name: Unarchive a file with extra options
+  become: yes
+  ansible.builtin.unarchive:
     src: https://github.com/wangyu-/udp2raw-tunnel/releases/download/{{ udp2raw_version }}/udp2raw_binaries.tar.gz
     dest: /opt/
     remote_src: yes
     extra_opts:
-    - udp2raw_{{ udp2raw_arch }}
+    - "udp2raw_{{ udp2raw_arch }}"
+  notify: restart udp2raw
+
+- name: write config file
+  become: yes
+  template:
+    src: udp2raw.configfile.j2
+    dest: /etc/udp2raw/{{ udp2raw_instance }}.conf
+    owner: root
+    group: root
+    mode: '0755'
+  notify: restart udp2raw
 
 - name: create udp2raw as a systemctl service
   become: yes
   template:
-    src: udp2raw.service.j2
-    dest: /etc/systemd/system/udp2raw.service
+    src: udp2raw_.service.j2
+    dest: /lib/systemd/system/udp2raw@.service
     owner: root
     group: root
     mode: '0755'
+  notify: reload service
 
-- name: restart service
+- name: enable service
   become: yes
   ansible.builtin.systemd:
-    name: udp2raw
-    daemon_reload: yes
+    name: udp2raw@{{ udp2raw_instance }}
     enabled: yes
-    state: restarted
-
