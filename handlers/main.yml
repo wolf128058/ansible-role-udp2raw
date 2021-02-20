@@ -1,11 +1,11 @@
 - name: reload service
   become: yes
   ansible.builtin.systemd:
-    name: udp2raw@{{ usd2raw_instance }}
+    name: udp2raw@{{ udp2raw_instance }}
     daemon_reload: yes
 
 - name: restart udp2raw
   become: yes
   ansible.builtin.systemd:
-    name: udp2raw@{{ usd2raw_instance }}
+    name: udp2raw@{{ udp2raw_instance }}
     state: restarted
