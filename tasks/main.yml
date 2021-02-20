@@ -24,6 +24,7 @@
     remote_src: yes
     extra_opts:
     - "udp2raw_{{ udp2raw_arch }}"
+  notify: restart udp2raw
 
 - name: write config file
   become: yes
@@ -33,6 +34,7 @@
     owner: root
     group: root
     mode: '0755'
+  notify: restart udp2raw
 
 - name: create udp2raw as a systemctl service
   become: yes
@@ -42,11 +44,10 @@
     owner: root
     group: root
     mode: '0755'
+  notify: reload service
 
-- name: restart service
+- name: enable service
   become: yes
   ansible.builtin.systemd:
     name: udp2raw@{{ usd2raw_instance }}
-    daemon_reload: yes
     enabled: yes
-    state: restarted
