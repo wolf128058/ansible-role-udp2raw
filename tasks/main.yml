@@ -26,6 +26,12 @@
     - "udp2raw_{{ udp2raw_arch }}"
   notify: restart udp2raw
 
+- name: create directory for config
+  become: yes
+  file:
+    path: /etc/udp2raw
+    state: directory
+
 - name: write config file
   become: yes
   template:
